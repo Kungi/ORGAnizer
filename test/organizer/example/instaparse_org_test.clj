@@ -10,15 +10,29 @@
 (deftest org-heading-parser-test
   (is (= (org-parse-string org-test-string)
          [:org
-          [:heading [:stars "*"] [:title "Hallo"]]
-          [:heading [:stars "**"] [:title "Welt"]]
-          [:heading [:stars "***"] [:title "Foo"]]
-          [:heading [:stars "****"] [:title "Bar"]]])))
+          [:block [:heading [:stars "*"] [:title "Hallo"]]]
+          [:block [:heading [:stars "**"] [:title "Welt"]]]
+          [:block [:heading [:stars "***"] [:title "Foo"]]]
+          [:block [:heading [:stars "****"] [:title "Bar"]]]])))
 
 (deftest org-level-test
   (is (= (org-analyze-level (org-parse-string org-test-string))
          [:org
-          [:heading 1 [:title "Hallo"]]
-          [:heading 2 [:title "Welt"]]
-          [:heading 3 [:title "Foo"]]
-          [:heading 4 [:title "Bar"]]])))
+          [:block [:heading 1 [:title "Hallo"]]]
+          [:block [:heading 2 [:title "Welt"]]]
+          [:block [:heading 3 [:title "Foo"]]]
+          [:block [:heading 4 [:title "Bar"]]]])))
+
+(deftest org-parser-can-parse-text-blocks
+  (is (= (org-parse-string
+          "* Foo
+   Hallo
+   - Welt
+   - 23")
+         [:org
+          [:block
+           [:heading [:stars "*"] [:title "Foo"]]
+           [:content
+            [:textline "   Hallo"]
+            [:textline "   - Welt"]
+            [:textline "   - 23"]]]]))) 

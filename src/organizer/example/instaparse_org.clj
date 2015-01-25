@@ -4,9 +4,14 @@
 
 
 (def org-grammar
-  "org = line+
-   <line> = heading
-   heading = stars <#' *'> title
+  "org = block+
+   block = heading [content]
+
+   heading = stars <#' *'> title 
+
+   content = textline+
+   textline = #'^[^\\*].*'<EOL>
+
    stars = #'\\*+'
    title = #'.*' <EOL>
    <EOL> = '\n' | '\r\n' | #'$'")
