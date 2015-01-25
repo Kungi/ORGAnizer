@@ -9,9 +9,10 @@
 
    heading = stars <#' *'> title 
 
-   content = textline+
-   textline = #'^[^\\*].*'<EOL>
+   content = (textline | empty-line)+
+   textline = #'^[^\\*].+'<EOL>
 
+   empty-line = <EOL>
    stars = #'\\*+'
    title = #'.*' <EOL>
    <EOL> = '\n' | '\r\n' | #'$'")

@@ -27,6 +27,7 @@
   (is (= (org-parse-string
           "* Foo
    Hallo
+
    - Welt
    - 23")
          [:org
@@ -34,5 +35,6 @@
            [:heading [:stars "*"] [:title "Foo"]]
            [:content
             [:textline "   Hallo"]
+            [:empty-line]
             [:textline "   - Welt"]
-            [:textline "   - 23"]]]]))) 
+            [:textline "   - 23"]]]])))
