@@ -7,7 +7,11 @@
    <line> = heading
    heading = <stars> <#' *'> title
    stars = #'\\*+'
-   title = #'.*$'")
+   title = #'.*' <EOL>
+   <EOL> = '\n' | '\r\n' | #'$'")
 
 (defn org-parse-string [s]
   ((i/parser org-grammar) s))
+
+
+(org-parse-string "* Hallo\n*Welt\n")

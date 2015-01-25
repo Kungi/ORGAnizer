@@ -14,4 +14,9 @@
          [:org [:heading [:title "Welt"]]]))
 
   (is (= (org-parse-string "**** Welt")
-         [:org [:heading [:title "Welt"]]])))
+         [:org [:heading [:title "Welt"]]]))
+
+  (is (= (org-parse-string "* Hallo\n*Welt\n")
+         [:org
+          [:heading [:title "Hallo"]]
+          [:heading [:title "Welt"]]])))
