@@ -5,18 +5,33 @@
 
 (deftest org-parser-test
   (is (= (org-parse-string "* Hallo")
-         [:org [:heading [:title "Hallo"]]]))
-
+         [:org [:heading
+                [:stars "*"]
+                [:title "Hallo"]]]))
+  
   (is (= (org-parse-string "* Welt")
-         [:org [:heading [:title "Welt"]]]))
+         [:org [:heading
+                [:stars "*"]
+                [:title "Welt"]]]))
 
   (is (= (org-parse-string "*      Welt")
-         [:org [:heading [:title "Welt"]]]))
+         [:org [:heading
+                [:stars "*"]
+                [:title "Welt"]]]))
 
   (is (= (org-parse-string "**** Welt")
-         [:org [:heading [:title "Welt"]]]))
+         [:org [:heading
+                [:stars "****"]
+                [:title "Welt"]]]))
 
-  (is (= (org-parse-string "* Hallo\n*Welt\n")
+  (is (= (org-parse-string "* Hallo\n**Welt\n")
          [:org
-          [:heading [:title "Hallo"]]
-          [:heading [:title "Welt"]]])))
+          [:heading [:stars "*"] [:title "Hallo"]]
+          [:heading [:stars "**"] [:title "Welt"]]]))
+
+  (is (= (org-parse-string
+          "* Hallo
+*Welt\n")
+         [:org
+          [:heading [:stars "*"] [:title "Hallo"]]
+          [:heading [:stars "*"] [:title "Welt"]]])))
